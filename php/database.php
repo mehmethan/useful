@@ -13,13 +13,13 @@ class Database{
 			$this->conn = new PDO("mysql:host=$this->server;dbname=$this->db_name;charset=utf8", $this->username, $this->password);
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}catch(PDOException $e){
-			die("Connection failed: " . $e->getMessage());
+			die("Connection Failed: " . $e->getMessage());
 		}
 	}
 
 	function create($tableName = "", $columns = ""){
 		if( empty($tableName) || empty($columns) ){
-			echo "Table name or columns can not be empty";
+			echo "Table Name or Columns Can Not Be Empty";
 			return false;
 		}
 
@@ -36,7 +36,7 @@ class Database{
 
 	function alter($tableName = "", $statement = ""){
 		if( empty($tableName) || empty($statement) ){
-			echo "Table name or statement can not be empty";
+			echo "Table Name or Statement Can Not Be Empty";
 			return false;
 		}
 
