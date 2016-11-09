@@ -4,8 +4,8 @@ class Database{
 
 	private $server = "localhost";
 	private $db_name = "testdb";
-	private $username = "";
-	private $password = "";
+	private $username = "root";
+	private $password = "3eq175";
 	private $conn;
 
 	function __construct(){
@@ -16,6 +16,7 @@ class Database{
 			die("Connection Failed: " . $e->getMessage());
 		}
 	}
+
 
 	function create($tableName = "", $columns = ""){
 		if( empty($tableName) || empty($columns) ){
@@ -34,6 +35,7 @@ class Database{
 		}
 	}
 
+
 	function alter($tableName = "", $statement = ""){
 		if( empty($tableName) || empty($statement) ){
 			echo "Table Name or Statement Can Not Be Empty";
@@ -50,6 +52,7 @@ class Database{
 			return false;
 		}
 	}
+
 
 	function drop($tableName = ""){
 		if( empty($tableName) ){
@@ -80,6 +83,7 @@ class Database{
 		}
 	}	
 
+
 	function query($sql){
 		try{
 			$stmt = $this->conn->prepare($sql);
@@ -109,6 +113,7 @@ class Database{
 			return false;
 		}
 	}
+
 
 	/* Example usages of select function:
 		
@@ -151,6 +156,53 @@ class Database{
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}catch(PDOException $e){
 			echo "Select Statement Failed: ". $e->getMessage();
+			return false;
+		}
+
+	}
+
+	function update(){
+
+	}
+
+
+	/* Example usages of delete function:
+		
+		$result = $db->delete("users");
+		$result = $db->delete("users", [ ["name", "=", "john"], ["age", ">", 21] ], "or", 10);
+		$result = $db->delete("users", [ ["age", ">", 21] ]);
+
+	*/
+	function delete($table, $conditions = [], $operator = "AND", $limit = 0){
+		$limit = is_int($limit) && $limit > 0 ? $limit : 0;
+
+		$operator = in_array(strtolower($operator), ["or", "and"]) ? strtoupper($operator) : "AND";
+
+		$placeholders = [];
+		$condition_values = [];
+		foreach ($conditions as $condition) {
+			$placeholders[] = $condition[0].$condition[1].":".$condition[0];
+			$condition_values[$condition[0]] = $condition[2]; 
+		}
+
+		$sql = "DELETE FROM ". $table;
+
+		if(!empty($conditions)){
+			$sql .= " WHERE ". implode(' '.$operator.' ', $placeholders);
+		}
+
+		if($limit){
+			$sql .= " LIMIT ".$limit;
+		}
+
+		echo $sql;
+
+		try{
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute($condition_values);
+			return $stmt->rowCount();
+		}catch(PDOException $e){
+			echo "Delete Statement Failed: ". $e->getMessage();
 			return false;
 		}
 
