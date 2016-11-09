@@ -4,8 +4,8 @@ class Database{
 
 	private $server = "localhost";
 	private $db_name = "testdb";
-	private $username = "root";
-	private $password = "3eq175";
+	private $username = "";
+	private $password = "";
 	private $conn;
 
 	function __construct(){
@@ -195,7 +195,6 @@ class Database{
 			$sql .= " LIMIT ".$limit;
 		}
 
-		echo $sql;
 
 		try{
 			$stmt = $this->conn->prepare($sql);
