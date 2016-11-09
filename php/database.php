@@ -195,7 +195,6 @@ class Database{
 			$sql .= " LIMIT ".$limit;
 		}
 
-
 		try{
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute($condition_values);
