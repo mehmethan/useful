@@ -161,7 +161,51 @@ class Database{
 
 	}
 
-	function update(){
+	/* Example usages of select function:
+		
+		$result = $db->update("users", [ "name" => "john", "age" => 22 ], [ ["age" "<", "17"], ["name" "=", "john"] ], "and", 10);
+		$result = $db->update("users", [ "name" => "john", "age" => 22 ], [ ["age" "<", "17"], ["name" "=", "john"] ]);
+		$result = $db->update("users", [ "name" => "john", "age" => 22 ]);
+
+	*/
+
+	function update($table, $valuesArray =  [], $conditions = [], $operator = "AND", $limit = 0){
+
+		$limit = is_int($limit) && $limit > 0 ? $limit : 0;
+
+		$operator = in_array(strtolower($operator), ["or", "and"]) ? strtoupper($operator) : "AND";
+
+		$values_placeholders = [];
+		foreach ($valuesArray as $key => $value) {
+			$values_placeholders[] = $key. "=:". $key;
+		}
+
+		$condition_placeholders = [];
+		$condition_values = [];
+		foreach ($conditions as $key => $condition) {
+			$condition_placeholders[] = $condition[0].$condition[1].":w".$key."_".$condition[0];
+			$condition_values[":w".$key."_".$condition[0]] = $condition[2]; 
+		}
+
+		$sql = "UPDATE ". $table ." SET ". implode(',', $values_placeholders);
+
+		if(!empty($conditions)){
+			$sql .= " WHERE ". implode(' '.$operator.' ', $condition_placeholders);
+		}
+
+		if($limit){
+			$sql .= " LIMIT ".$limit;
+		}
+
+
+		try{
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute(array_merge($valuesArray, $condition_values));
+			return $stmt->rowCount();
+		}catch(PDOException $e){
+			echo "Update Statement Failed: ". $e->getMessage();
+			return false;
+		}
 
 	}
 
