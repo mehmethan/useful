@@ -161,7 +161,7 @@ class Database{
 
 	}
 
-	/* Example usages of select function:
+	/* Example usages of update function:
 		
 		$result = $db->update("users", [ "name" => "john", "age" => 22 ], [ ["age" "<", "17"], ["name" "=", "john"] ], "and", 10);
 		$result = $db->update("users", [ "name" => "john", "age" => 22 ], [ ["age" "<", "17"], ["name" "=", "john"] ]);
