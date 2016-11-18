@@ -166,6 +166,8 @@ class SqliteDBC:
 		self.order_by = ""
 		self.order_type = "ASC"
 
+		cursor.close()
+
 		return result
 
 
