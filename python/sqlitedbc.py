@@ -181,7 +181,6 @@ class SqliteDBC:
 		if int(self.limit_count) > 0:
 			sql = sql + " LIMIT {}".format(self.limit_count)
 
-		
 
 		try:
 			#merge two dictionaries
