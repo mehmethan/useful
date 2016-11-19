@@ -172,7 +172,7 @@ class SqliteDBC:
 
 
 	def update(self, values = {}):
-		placeholders = [key + ' = :'+key for key in values.keys()]
+		placeholders = [key + ' = :' + key for key in values.keys()]
 		sql = "UPDATE {} SET {}".format(self.table_name, ','.join(placeholders))
 
 		if self.where != "":
