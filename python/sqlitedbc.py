@@ -230,7 +230,7 @@ class SqliteDBC:
 		return row_count 
 
 
-	def execute(self, sql):
+	def execute_sql(self, sql):
 		try:
 			cursor = self.conn.cursor()
 			cursor.execute(sql)
