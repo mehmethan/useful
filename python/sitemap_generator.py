@@ -55,7 +55,7 @@ def create_xml_output(urls):
 	f.close()
 
 def create_json_output(urls):
-	output = [{"url":url} for url in urls]
+	output = [{"loc":url} for url in urls]
 	json_o = json.dumps(output)
 	f = open("sitemap.json", 'w')
 	f.write(json_o)
