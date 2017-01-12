@@ -1,7 +1,5 @@
 <?php 
 
-
-
 class Image{
 
 	private static $instance;
@@ -119,16 +117,16 @@ class Image{
 					$width = $h * $ratio;
 					$height = $h;
 				}else{
-					 if ($h < $w) {
+					if ($h < $w){
 			            $width = $w;
 			            $height= $w * $ratio;
-			        }else if($h > $w) {
+			    	}else if($h > $w){
 			            $width = $h * $ratio;
 			            $height= $h;
 			        }else{
 			            $width = $w;
 			            $height = $h;
-			        }
+			    	}
 				}
 				break;
 			default:
