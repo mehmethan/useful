@@ -118,15 +118,15 @@ class Image{
 					$height = $h;
 				}else{
 					if ($h < $w){
-			            $width = $w;
-			            $height= $w * $ratio;
-			    	}else if($h > $w){
-			            $width = $h * $ratio;
-			            $height= $h;
-			        }else{
-			            $width = $w;
-			            $height = $h;
-			    	}
+					    $width = $w;
+					    $height= $w * $ratio;
+					}else if($h > $w){
+					    $width = $h * $ratio;
+					    $height= $h;
+					}else{
+					    $width = $w;
+					    $height = $h;
+					}
 				}
 				break;
 			default:
@@ -157,35 +157,35 @@ class Image{
 		switch ($this->type()) {
 			case 'jpg':
 				 if (imagetypes() & IMG_JPG) {
-	                if (imagejpeg($this->newImage, $destination, $quality) === false) {
+				    if (imagejpeg($this->newImage, $destination, $quality) === false) {
 						trigger_error("File creation problem: " . $destination);
 						return false;
 					} else {
 						return true;
 					}
-	            }
+				}
 				break;
 			case 'png':
 				$scaleQuality = round(($quality/100) * 9);
 				$invertScaleQuality = 9 - $scaleQuality;
 				if (imagetypes() & IMG_PNG) {
-	                if (imagepng($this->newImage, $destination, $invertScaleQuality) === false) {
+				    if (imagepng($this->newImage, $destination, $invertScaleQuality) === false) {
 						trigger_error("File creation problem: " . $destination);
 						return false;
 					} else {
 						return true;
 					}
-	            }
+				}
 				break;
 			case 'gif':
 				if (imagetypes() & IMG_GIF) {
-	               if (imagegif($this->newImage, $destination) === false) {
+				   if (imagegif($this->newImage, $destination) === false) {
 						trigger_error("File creation problem: " . $destination);
 						return false;
 					} else {
 						return true;
 					}
-	            }
+				}
 				break;
 			default:
 				return false;
