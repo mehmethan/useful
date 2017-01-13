@@ -9,6 +9,11 @@
   * Image::get('example.jpg')->resize(400, 600, Image::RESIZE_EXACT)->save('./imgs/some_folder/e1.jpg', 90);
   * Image::get('example.jpg')->resize(400, 600, Image::RESIZE_AUTO)->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
   * Image::get('example.jpg')->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
+  *
+  * Image::download('http://example.com/img/abc.jpg', 'example.jpg')->resize(400, 600)->save();
+  * Image::download('http://example.com/img/abc.jpg', 'example.jpg')->resize(400, 600, Image::RESIZE_EXACT)->save('./imgs/some_folder/e1.jpg', 90);
+  * Image::download('http://example.com/img/abc.jpg', 'example.jpg')->resize(400, 600, Image::RESIZE_AUTO)->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
+  * Image::download('http://example.com/img/abc.jpg', 'example.jpg')->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
   * 
   */
 
