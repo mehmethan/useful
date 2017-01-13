@@ -1,5 +1,6 @@
 <?php 
 
+
 class Image{
 
 	private static $instance;
@@ -136,14 +137,49 @@ class Image{
 		settype($height, 'integer');
 
 		$this->newImage = imagecreatetruecolor($width, $height);
+		if($this->type() == "gif" or $this->type() == "png"){
+		    imagecolortransparent($this->newImage, imagecolorallocatealpha($this->newImage, 0, 0, 0, 127));
+		    imagealphablending($this->newImage, false);
+		    imagesavealpha($this->newImage, true);
+		  }
 		imagecopyresampled($this->newImage, $original, 0, 0, 0, 0, $width, $height, $original_size[0], $original_size[1]);
-		print_r($this->newImage);
+		
 		return self::$instance;
 	}
 
-	public function crop(){
+	public function crop($w, $h){
+		$original = $this->readImage();
+		$original_size = getimagesize($this->image);
+		$widthRatio = $original_size[0] / $w;
+		$heightRatio = $original_size[1] / $h;
 
+		if ($heightRatio < $widthRatio) {
+			$optimalRatio = $heightRatio;
+		}else{
+			$optimalRatio = $widthRatio;
+		}
+
+		$width = $original_size[0]  / $optimalRatio;
+		$height = $original_size[1] / $optimalRatio;
+
+		$cropStartX = ( $width / 2) - ( $w /2 );
+		$cropStartY = ( $height/ 2) - ( $h/2 );
+
+		if(!empty($this->newImage)){
+			$crop = $this->newImage;	
+		}else{
+			$crop = $original;
+		}
+		
+		//imagedestroy($this->newImage);
+
+		$this->newImage = imagecreatetruecolor($w, $h);
+		imagecopyresampled($this->newImage, $crop , 0, 0, $cropStartX, $cropStartY, $w, $h , $w, $h);
+
+		return self::$instance;
 	}
+
+	
 
 	public function save($destination = '', $quality = 100){
 		if(!empty($destination)){
