@@ -1,5 +1,16 @@
 <?php 
 
+ /**
+  * @author Mehmet Han <mehmet-han@yandex.com>
+  *
+  * Use examples of the Image class
+  *
+  * Image::get('example.jpg')->resize(400, 600)->save();
+  * Image::get('example.jpg')->resize(400, 600, Image::RESIZE_EXACT)->save('./imgs/some_folder/e1.jpg', 90);
+  * Image::get('example.jpg')->resize(400, 600, Image::RESIZE_AUTO)->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
+  * Image::get('example.jpg')->crop(200, 200)->save('./imgs/some_folder/e1.jpg', 100);
+  * 
+  */
 
 class Image{
 
