@@ -1,9 +1,8 @@
 import os
-import sys
 import argparse
 import cv2
 
-FACE_CASCADE_PATH = './cascade/haarcascade_frontalface_default.xml' 
+FACE_CASCADE_PATH = './cascade/haarcascade_frontalface_default.xml'
 
 def image_exists(image_path = ''):
 	if os.path.isfile(image_path):
