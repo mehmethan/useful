@@ -23,10 +23,10 @@ def main():
 		gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 		faces = face_cascade.detectMultiScale(gray_image,
-											 scaleFactor = 1.1,
-											 minNeighbors = 5,
-											 minSize = (30, 30),
-											 flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
+											  scaleFactor = 1.1,
+											  minNeighbors = 5,
+											  minSize = (30, 30),
+											  flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
 
 		print("{} faces found in the image".format(len(faces)))
 
@@ -37,7 +37,7 @@ def main():
 		cv2.waitKey(0)
 	else:
 		print('Image file cannot be found')
-		
+
 
 if __name__ == '__main__':
 	main()
